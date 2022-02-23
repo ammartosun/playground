@@ -3,7 +3,7 @@ import pygame
 import random
 
 # system constants
-FRAME_SPEED = 30
+FRAME_SPEED = 5
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 800
 FOOD_COLOR = [255,255,255]
@@ -12,6 +12,15 @@ SNAKE_SIZE = 25
 SNAKE_COLOR = [0, 255, 0]
 SEGMENT_SIZE = 15
 BACKGROUND_COLOR = [0,0,0]
+
+
+def exit_screen():
+    exitFlag = False
+    while not exitFlag:
+        event = pygame.event.poll()
+        if event.type==pygame.QUIT:
+            exitFlag = True
+
 
 # Food
 class Food:
@@ -70,7 +79,7 @@ class Snake:
         self.length += 1
     
     def die(self):
-        pass
+        self.color = [238,59,59]
 
 
 class Segment:
@@ -137,7 +146,7 @@ def main():
         for s in snake.segments:
             if distance(snake, s) < snake.size:
                 snake.die()
-
+                running = False
 
         # draw everything
         # draw background
@@ -152,7 +161,8 @@ def main():
         pygame.display.flip()
         # tick timer
         clock.tick(FRAME_SPEED)
+    
+    exit_screen()
 
 
 main()
-
